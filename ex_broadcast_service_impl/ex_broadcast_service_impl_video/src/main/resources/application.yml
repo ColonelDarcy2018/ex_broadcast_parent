@@ -1,0 +1,30 @@
+server:
+  port: 8085
+spring:
+  resources:
+    static-locations: classpath:/
+#  mvc:
+#    static-path-pattern:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://172.21.0.12:3306/broadcast_video  #172.21.0.12 docker部署项目调用本机部署的服务时，不能使用127.0.0.1
+    url: jdbc:mysql://49.232.93.219:3306/broadcast_video  #172.21.0.12 docker部署项目调用本机部署的服务时，不能使用127.0.0.1
+    username: root
+    password: zxw@lovelvu
+
+  jpa:
+    show-sql: true
+    database: MySQL
+
+#静态页面解析器配置
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/ # 默认网页路径
+    check-template-location: true
+    suffix: .html
+    encoding: utf-8
+    servlet:
+      content-type: text/html
+    mode: HTML5
+
+
