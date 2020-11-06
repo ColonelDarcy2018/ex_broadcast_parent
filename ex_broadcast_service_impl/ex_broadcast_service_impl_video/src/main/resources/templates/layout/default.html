@@ -1,26 +1,102 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <title>SiteMesh example: <sitemesh:write property='title'/></title>
-        <style type='text/css'>
-            /* Some CSS */
-            body { font-family: arial, sans-serif; background-color: #ffffcc; }
-            h1, h2, h3, h4 { text-align: center; background-color: #ccffcc;
-                border-top: 1px solid #66ff66; }
-            .mainBody { padding: 10px; border: 1px solid #555555; }
-            .disclaimer { text-align: center; border-top: 1px solid #cccccc;
-                margin-top: 40px; color: #666666; font-size: smaller; }
-        </style>
         <sitemesh:write property='head'/>
+
+        <link rel="stylesheet" href="layui/css/layui.css">
+<!--        <script src="layui/layui.all.js"></script>-->
     </head>
-    <body>
 
-        <h1 class='title'>SiteMesh example site: <sitemesh:write property='title'/></h1>
 
-        <div class='mainBody'>
+
+    <body class="layui-layout-body">
+
+        <div class="layui-layout layui-layout-admin">
+
+<!--        通用导航栏开始-->
+        <div class="layui-header">
+            <div class="layui-logo">layui 后台布局</div>
+
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item layui-this"><a href="">控制台</a> </li>
+                <li class="layui-nav-item"><a href="">设备直播</a> </li>
+                <li class="layui-nav-item"><a href="">设备录播</a> </li>
+                <li class="layui-nav-item"><a href="">用户</a> </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">其它系统</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">邮件管理</a> </dd>
+                        <dd><a href="">消息管理</a> </dd>
+                        <dd><a href="">授权管理</a> </dd>
+                    </dl>
+                </li>
+            </ul>
+
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                        用户名
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a> </dd>
+                        <dd><a href="">安全设置</a> </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">退出</a> </li>
+            </ul>
+
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+<!--                左侧导航栏-->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a  href="javascript:;">所有商品</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;">列表一</a> </dd>
+                            <dd><a href="javascript:;">列表二</a> </dd>
+                            <dd><a href="">超链接</a> </dd>
+                        </dl>
+                    </li>
+
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a  href="javascript:;">解决方案</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;">列表一</a> </dd>
+                            <dd><a href="javascript:;">列表二</a> </dd>
+                            <dd><a href="">超链接</a> </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item"><a href="">云市场</a></li>
+
+                </ul>
+            </div>
+        </div>
+<!--通用导航栏结束-->
+        <div class="layui-body">
+<!--            内容主体区-->
             <sitemesh:write property='body'/>
         </div>
 
-        <div class='disclaimer'>Site disclaimer. This is an example.</div>
+
+        <div class="layui-footer">
+<!--            底部固定区域-->
+            @author:朱晓伟 新光光电科技股份有限公司
+        </div>
+
+        </div>
 
     </body>
+
+    <script src="layui/layui.js"></script>
+    <script>
+        //JavaScript代码区域
+        layui.use('element', function(){
+            var element = layui.element;
+
+        });
+    </script>
 </html>

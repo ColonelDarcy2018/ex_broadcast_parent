@@ -7,7 +7,7 @@
     <title>This is test HTML</title>
 
     <script src="jquery-3.5.1.min.js"></script>
-    <script src="video_play.js"></script>
+    <script src="../static/js/video_play.js"></script>
 </head>
 <body>
 
@@ -15,18 +15,11 @@
 
 <div id="videoDiv">
     <div style="text-align:left">
-        <button onclick="playPause()">开始/暂停</button>
-        <button onclick="makeBig()">放大</button>
-        <button onclick="makeSmall()">缩小</button>
-        <button onclick="makeNormal()">正常</button>
-        <br>
-        <video id="video" width="800" height="600">
+        <video width="1080" height="720" controls autoplay>
             <source th:src="${f_path}" type="video/mp4">
-            <source th:src="${f_path}" type="video/ogg">
-            此浏览器不支持 HTML5 video
+            您的浏览器不支持 video 属性。
         </video>
     </div>
-
 
 </div>
 

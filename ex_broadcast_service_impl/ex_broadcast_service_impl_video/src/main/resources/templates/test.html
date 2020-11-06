@@ -5,12 +5,35 @@
     <title>This is test HTML</title>
 
     <script src="jquery-3.5.1.min.js"></script>
-    <script src="test.js"></script>
+    <script src="js/test.js"></script>
 </head>
 <body>
 
 <div id="mainDiv">
+
+    Rtmp:<input type="text" placeholder="请输入播放地址" ><input type="button" data-type="rtmp" class="input_btn" value="播放">
+
+    Hls:<input type="text" placeholder="请输入播放地址" ><input type="button" data-type="hls" class="input_btn" value="播放">
+
+    <div style="height: 15px;"></div>
+
     <table style="text-align: center;border: black 1px solid" width="800"  id="mainTable" >
+    </table>
+
+    <div style="height: 15px;"></div>
+
+
+    <table style="text-align: center;border: black 1px solid" width="800"  id="liveTable" >
+    </table>
+
+    <div style="height: 15px;"></div>
+
+    <table style="text-align: center;border: black 1px solid" width="800" >
+
+        <tr><td>CCTV6高清</td><td class="hls_channel">http://ivi.bupt.edu.cn/hls/cctv6hd.m3u8</td></tr>
+        <tr><td>湖南卫视</td><td class="rtmp_channel">rtmp://58.200.131.2:1935/livetv/hunantv</td></tr>
+        <tr><td>CCTV1高清</td><td class="hls_channel">http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8</td></tr>
+        <tr><td>CCTV3高清</td><td class="hls_channel">http://ivi.bupt.edu.cn/hls/cctv3hd.m3u8</td></tr>
     </table>
 
 </div>

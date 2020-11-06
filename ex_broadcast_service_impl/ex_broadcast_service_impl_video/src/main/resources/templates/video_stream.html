@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<!--脚本解析引入-->
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RTMP直播间</title>
+
+<!--    <link href="videojs5/video-js.css" rel="stylesheet">-->
+<!--    <script src="videojs5/video.js"></script>-->
+
+    <link href="videojs7/video-js.css" rel="stylesheet">
+    <script src="videojs7/video.js"></script>
+<!--    用于支持videojs7播放RTMP流-->
+    <script src="https://cdn.jsdelivr.net/npm/videojs-flash@2/dist/videojs-flash.min.js"></script>
+</head>
+<body>
+
+
+    <video id="liveVideo" class="video-js" controls autoplay  preload="auto" width="1080" height="720"
+           data-setup="{}">
+        <!-- <source src="MY_VIDEO.mp4" type='video/mp4'> -->
+        <source th:src="${rtmp_url}" type='rtmp/flv'>
+        <p class="vjs-no-js">
+            To view this video please enable JavaScript, and consider upgrading to a web browser that
+            <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+        </p>
+    </video>
+
+
+
+</body>
+</html>

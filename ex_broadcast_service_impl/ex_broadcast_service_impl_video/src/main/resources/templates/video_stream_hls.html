@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<!--脚本解析引入-->
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HLS直播间</title>
+
+    <link href="videojs7/video-js.css" rel="stylesheet">
+    <script src="videojs7/video.js"></script>
+    <script src="videojs7/videojs-http-streaming.min.js"></script>
+
+</head>
+<body>
+
+
+    <video-js id=vid1 width=1080 height=600 class="vjs-default-skin" controls>
+        <source
+                th:src="${rtmp_url}"
+                type="application/x-mpegURL">
+    </video-js>
+    <script>
+        var player = videojs('vid1');
+        player.play();
+    </script>
+
+
+</body>
+</html>

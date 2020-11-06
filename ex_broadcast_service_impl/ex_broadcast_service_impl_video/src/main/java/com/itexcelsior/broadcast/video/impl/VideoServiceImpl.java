@@ -2,14 +2,18 @@ package com.itexcelsior.broadcast.video.impl;
 
 import com.itexcelsior.broadcast.common.core.base.BaseApiService;
 import com.itexcelsior.broadcast.common.core.base.BaseResponse;
+import com.itexcelsior.broadcast.common.core.util.FileUtil;
+import com.itexcelsior.broadcast.common.core.util.RedisUtil;
 import com.itexcelsior.broadcast.video.manage.VideoFileInfoManager;
 import com.itexcelsior.broadcast.video.model.VideoFileInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +28,12 @@ public class VideoServiceImpl extends BaseApiService {
     @Autowired
     private VideoFileInfoManager videoFileInfoManager;
 
+    @Value("${video.stream.app}")
+    private String streamApp;
+
+    @Autowired
+    private RedisUtil redisUtil;
+
 
     @GetMapping("/getFileInfo")
     public BaseResponse getFileInfo() {
@@ -34,15 +44,45 @@ public class VideoServiceImpl extends BaseApiService {
 
 
     @PostMapping("/onPlay")
-    public BaseResponse onPlay(String jsonStr) {
-        System.out.println("·····················有人播放了视频············");
-        return setResultSuccess("查询成功");
+    public int onPlay(@RequestBody Map map) {
+        System.out.println("·····················有人播放了直播流············");
+        return 0;
     }
 
     @PostMapping("/onStop")
-    public BaseResponse onStop(String jsonStr) {
-        System.out.println("·····················有人停止了视频············");
-        return setResultSuccess("查询成功");
+    public int onStop(@RequestBody Map map) {
+        System.out.println("·····················有人停止了直播流············");
+        return 0;
+    }
+
+    /**
+     *        {
+     * "action": "on_publish",
+     * "client_id": 1985,
+     * "ip": "192.168.1.10",
+     * "vhost": "video.test.com",
+     * "app": "live",
+     * "stream": "livestream"
+     * }
+     * @param map
+     * @return
+     */
+    @PostMapping("/onPublish")
+    public int onPublish(@RequestBody Map map) {
+
+        System.out.println("·····················有人发布了直播流············");
+        //发布直播间，存入Redis缓存中
+        redisUtil.leftPushList(streamApp,(String) map.get("stream"));
+
+        return 0;
+    }
+
+    @PostMapping("/onUnpublish")
+    public int onUnpublish(@RequestBody Map map) {
+        System.out.println("·····················有人停止了发布直播流············");
+        //停止发布，删除Redis缓存
+        redisUtil.listRemove(streamApp,(String) map.get("stream"));
+        return 0;
     }
 
 
@@ -61,11 +101,20 @@ public class VideoServiceImpl extends BaseApiService {
      * @return
      */
     @PostMapping("/onDvr")
-    public BaseResponse onDvr(@RequestBody Map map) {
+    public int onDvr(@RequestBody Map map) {
         System.out.println("·····················保存录制文件名称············");
 
-//        JSONObject jsonObject = JSONObject.parseObject(jsonStr);
-//        Map<String,Object> map= jsonObject;
+        for (Object entry : map.entrySet()) {
+            System.out.println("| --------  key:" + ((Map.Entry) entry).getKey() + ",vale:" + ((Map.Entry) entry).getValue() + " -------- |");
+        }
+
+        //得到文件后修改文件名称
+        File video=new File((String) map.get("file"));
+        File newFile = FileUtil.rename(video, "组织名_设备名" + System.currentTimeMillis()+".mp4");
+
+        String file=newFile.getPath()+"/"+newFile.getName();
+        System.out.println("这是旧文件的名称："+video.getName());
+        System.out.println("这是新文件的名称："+newFile.getName());
 
         VideoFileInfo videoFileInfo = new VideoFileInfo((String) map.get("ip"),
                 (String) map.get("vhost"),
@@ -73,27 +122,32 @@ public class VideoServiceImpl extends BaseApiService {
                 (String) map.get("stream"),
                 (String) map.get("param"),
                 (String) map.get("cwd"),
-                (String) map.get("file"));
-
-        for (Object entry : map.entrySet()) {
-            System.out.println("| --------  key:" + ((Map.Entry) entry).getKey() + ",vale:" + ((Map.Entry) entry).getValue() + " -------- |");
-        }
-
-
+                file);
         videoFileInfoManager.add(videoFileInfo);
 
-        return setResultSuccess("查询成功");
+        return 0;
     }
 
 
     /**
-     * 可以添加根据开始时间按天查询
+     * TODO 可以添加根据开始时间按天查询的重载方法
      *
      * @return
      */
     @PostMapping("/findAll")
     public List<VideoFileInfo> findAll() {
         return videoFileInfoManager.findAll();
+    }
+
+
+    /**
+     * 查询当前频道下的正在直播房间列表
+     * @return
+     */
+    @PostMapping("/findLiveChannel")
+    public List<String> findLiveChannel(){
+
+        return redisUtil.getListAll(streamApp);
     }
 
 

@@ -1,10 +1,11 @@
 server:
   port: 8085
 spring:
-  resources:
-    static-locations: classpath:/
-#  mvc:
-#    static-path-pattern:
+  mvc:
+    view:
+      prefix: /
+      suffix: .html
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://172.21.0.12:3306/broadcast_video  #172.21.0.12 docker部署项目调用本机部署的服务时，不能使用127.0.0.1
@@ -18,13 +19,36 @@ spring:
 
 #静态页面解析器配置
   thymeleaf:
-    cache: false
-    prefix: classpath:/templates/ # 默认网页路径
-    check-template-location: true
-    suffix: .html
-    encoding: utf-8
-    servlet:
-      content-type: text/html
-    mode: HTML5
+#    cache: false
+#    prefix: classpath:/templates/ # 默认网页路径
+#    check-template-location: true
+#    suffix: .html
+#    encoding: utf-8
+#    servlet:
+#      content-type: text/html
+#    mode: HTML5
+  mode: LEGACYHTML5
+  encoding: utf-8
+
+  redis:
+    database: 0
+    host: 49.232.93.219   #172.21.0.12
+    port: 6379
+    password: zxw@lovelvu_redis
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+    timeout: 10000
+
+video:
+  path:
+    prefix: http://49.232.93.219:8080
+  stream:
+    app: live
+    prefix: rtmp://49.232.93.219/live/
+
 
 
