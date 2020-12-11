@@ -19,7 +19,7 @@ public class MySiteMeshFilter extends ConfigurableSiteMeshFilter
     protected void applyCustomConfiguration(SiteMeshFilterBuilder builder) {
 
         builder.addDecoratorPath("/*","/layout/default")
-        .addExcludedPath("/static/**");
+        .addExcludedPath("/static/**").addExcludedPath("/index");
 
     }
 }

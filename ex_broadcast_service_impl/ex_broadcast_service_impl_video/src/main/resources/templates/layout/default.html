@@ -1,91 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>SiteMesh example: <sitemesh:write property='title'/></title>
+        <title>
+            <sitemesh:write property='title'/>
+        </title>
         <sitemesh:write property='head'/>
 
         <link rel="stylesheet" href="layui/css/layui.css">
-<!--        <script src="layui/layui.all.js"></script>-->
+        <!--        <script src="layui/layui.all.js"></script>-->
+        <script src="jquery-3.5.1.min.js"></script>
     </head>
-
 
 
     <body class="layui-layout-body">
 
         <div class="layui-layout layui-layout-admin">
 
-<!--        通用导航栏开始-->
-        <div class="layui-header">
-            <div class="layui-logo">layui 后台布局</div>
+            <!--        通用导航栏开始   -->
+            <div class="layui-header" style="background-color: #333333">
+                <div class="layui-logo">
+                    <img style="width: 200px;height: 60px;" src="image/logo.png">
+                </div>
 
-            <ul class="layui-nav layui-layout-left">
-                <li class="layui-nav-item layui-this"><a href="">控制台</a> </li>
-                <li class="layui-nav-item"><a href="">设备直播</a> </li>
-                <li class="layui-nav-item"><a href="">设备录播</a> </li>
-                <li class="layui-nav-item"><a href="">用户</a> </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">其它系统</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="">邮件管理</a> </dd>
-                        <dd><a href="">消息管理</a> </dd>
-                        <dd><a href="">授权管理</a> </dd>
-                    </dl>
-                </li>
-            </ul>
-
-            <ul class="layui-nav layui-layout-right">
-                <li class="layui-nav-item">
-                    <a href="javascript:;">
-                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                        用户名
-                    </a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="">基本资料</a> </dd>
-                        <dd><a href="">安全设置</a> </dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item"><a href="">退出</a> </li>
-            </ul>
-
-        </div>
-
-        <div class="layui-side layui-bg-black">
-            <div class="layui-side-scroll">
-<!--                左侧导航栏-->
-                <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                    <li class="layui-nav-item layui-nav-itemed">
-                        <a  href="javascript:;">所有商品</a>
+                <ul class="layui-nav layui-layout-left" id="nav-left">
+                    <li class="layui-nav-item console">
+                        <a href="/console">控制台</a>
+                    </li>
+                    <li class="layui-nav-item video_stream_hls">
+                        <a href="/toHlsStream?id=default">直播</a>
+                    </li>
+                    <li class="layui-nav-item test">
+                        <a href="/test">录播</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="">我的集体</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="">新光商城</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">其它系统</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">列表一</a> </dd>
-                            <dd><a href="javascript:;">列表二</a> </dd>
-                            <dd><a href="">超链接</a> </dd>
+                            <dd>
+                                <a href="">邮件管理</a>
+                            </dd>
+                            <dd>
+                                <a href="">消息管理</a>
+                            </dd>
+                            <dd>
+                                <a href="">授权管理</a>
+                            </dd>
                         </dl>
                     </li>
-
-                    <li class="layui-nav-item layui-nav-itemed">
-                        <a  href="javascript:;">解决方案</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">列表一</a> </dd>
-                            <dd><a href="javascript:;">列表二</a> </dd>
-                            <dd><a href="">超链接</a> </dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item"><a href="">云市场</a></li>
-
                 </ul>
+
+                <ul class="layui-nav layui-layout-right">
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">
+                            <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                            用户名
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="">基本资料</a>
+                            </dd>
+                            <dd>
+                                <a href="">安全设置</a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="">退出</a>
+                    </li>
+                </ul>
+
             </div>
-        </div>
-<!--通用导航栏结束-->
-        <div class="layui-body">
-<!--            内容主体区-->
-            <sitemesh:write property='body'/>
-        </div>
+
+            <div class="layui-side layui-bg-black">
+                <div class="layui-side-scroll">
+                    <!--                左侧导航栏-->
+                    <ul class="layui-nav layui-nav-tree" id="default-nav-tree" lay-filter="test">
+                        <li class="layui-nav-item layui-nav-itemed">
+                            <a href="javascript:;">设备管理</a>
+                        </li>
+
+                        <li class="layui-nav-item layui-nav-itemed">
+                            <a href="javascript:;">权限管理</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <!--通用导航栏结束-->
+            <div class="layui-body">
+                <!--            内容主体区-->
+                <sitemesh:write property='body'/>
+            </div>
 
 
-        <div class="layui-footer">
-<!--            底部固定区域-->
-            @author:朱晓伟 新光光电科技股份有限公司
-        </div>
+            <div class="layui-footer" style="text-align: center">
+                <!--            底部固定区域-->
+                @Author:朱晓伟 新光光电科技股份有限公司
+            </div>
 
         </div>
 
@@ -94,9 +110,15 @@
     <script src="layui/layui.js"></script>
     <script>
         //JavaScript代码区域
-        layui.use('element', function(){
-            var element = layui.element;
-
+        layui.use('element', function () {
+            let element = layui.element;
         });
+
+        $(function () {
+            let fileName = $("#file_name").val();
+            $("#nav-left").find("." + fileName).addClass("layui-this");
+        });
+
+
     </script>
 </html>

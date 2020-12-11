@@ -12,10 +12,11 @@
 <body>
 
 <input type="hidden" th:value="${f_path}" id="f_path"/>
+<input type="hidden" value="video_play" id="file_name">
 
-<div id="videoDiv">
-    <div style="text-align:left">
-        <video width="1080" height="720" controls autoplay>
+<div id="videoDiv" style="width: 100%;height: 100%;">
+    <div style="text-align:left;width: 100%;height: 100%;">
+        <video width="100%" height="100%" controls autoplay>
             <source th:src="${f_path}" type="video/mp4">
             您的浏览器不支持 video 属性。
         </video>
@@ -25,3 +26,5 @@
 
 </body>
 </html>
+
+

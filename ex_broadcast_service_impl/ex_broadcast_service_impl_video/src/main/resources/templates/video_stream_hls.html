@@ -11,19 +11,106 @@
     <script src="videojs7/video.js"></script>
     <script src="videojs7/videojs-http-streaming.min.js"></script>
 
+    <script src="jquery-3.5.1.min.js"></script>
+    <script src="flv.min.js"></script>
 </head>
 <body>
+<input type="hidden" value="video_stream_hls" id="file_name">
+<input type="hidden" th:value="${a_id}" id="a_id">
+<input type="hidden" th:value="${rtmp_url}" id="rtmp_url">
 
 
-    <video-js id=vid1 width=1080 height=600 class="vjs-default-skin" controls>
-        <source
-                th:src="${rtmp_url}"
-                type="application/x-mpegURL">
-    </video-js>
-    <script>
-        var player = videojs('vid1');
-        player.play();
-    </script>
+
+<video-js id=vid1 style="width: 100%;height: 100%;" class="vjs-default-skin" controls>
+    <source id="stream_src"
+            th:src="${rtmp_url}"
+            type="application/x-mpegURL">
+<!--    video/mp4     application/x-mpegURL-->
+</video-js>
+<script>
+    var player = videojs('vid1');
+    player.play();
+
+
+
+
+    $(function () {
+        // if (flvjs.isSupported()){
+        //     let rtmp_url=$("#rtmp_url").val();
+        //
+        //     let videoElement=document.getElementById('#vid1');
+        //     let flvPlayer=flvjs.createPlayer({
+        //         type:'flv',
+        //         url: rtmp_url
+        //     });
+        //     flvPlayer.;
+        //     flvPlayer.load();
+        //     flvPlayer.paly();
+        // }
+
+
+
+
+
+        let html = '<li class="layui-nav-item layui-nav-itemed">' +
+            '                            <a href="javascript:;">新光智能头盔</a>' +
+            '                            <dl class="layui-nav-child">' +
+            '                                <dd>' +
+            '                                    <a href="javascript:;" id="helmet_device_01">设备号:09KJ1FDK</a>' +
+            '                                </dd>' +
+            '                                <dd>' +
+            '                                    <a href="javascript:;" id="helmet_device_02">设备号:81KJ1EFA</a>' +
+            '                                </dd>' +
+            '                                <dd>' +
+            '                                    <a href="javascript:;" id="helmet_device_03">设备号:32EC1G2S</a>' +
+            '                                </dd>' +
+            '                            </dl>' +
+            '                        </li>' +
+            '                        <li class="layui-nav-item layui-nav-itemed">' +
+            '                            <a href="javascript:;">新光手持测温仪</a>' +
+            '                            <dl class="layui-nav-child">' +
+            '                                <dd>' +
+            '                                    <a href="javascript:;">设备号:01KJ1FDK</a>' +
+            '                                </dd>' +
+            '                                <dd>' +
+            '                                    <a href="javascript:;">设备号:23KJ1EFA</a>' +
+            '                                </dd>' +
+            '                                <dd>' +
+            '                                    <a href="javascript:;">设备号:17EC1G2S</a>' +
+            '                                </dd>' +
+            '                            </dl>' +
+            '                        </li>' +
+            '                        <li class="layui-nav-item layui-nav-itemed">' +
+            '                            <a href="javascript:;">演示直播</a>' +
+            '                            <dl class="layui-nav-child">' +
+            '                                <dd>' +
+            '                                    <a href="javascript:;" id="CCTV6" surl="http://ivi.bupt.edu.cn/hls/cctv6hd.m3u8">CCTV6</a>' +
+            '                                </dd>' +
+            '                                <dd>' +
+            '                                    <a href="javascript:;" id="CCTV1" surl="http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8">CCTV1</a>' +
+            '                                </dd>' +
+            '                                <dd>' +
+            '                                    <a href="javascript:;" id="CCTV3" surl="http://ivi.bupt.edu.cn/hls/cctv3hd.m3u8">CCTV3</a>' +
+            '                                </dd>' +
+            '                            </dl>' +
+            '                        </li>';
+
+
+        $("#default-nav-tree").html(html);
+        let a_id=$("#a_id").val();
+
+        $("#"+a_id).parent().addClass("layui-this");
+
+        $("#default-nav-tree").find("a").click(function () {
+            a_id = $(this).attr("id");
+            if (a_id) {
+                window.location.href="/toHlsStream?id="+a_id;
+            }
+        });
+    });
+
+
+</script>
 
 
 </body>
